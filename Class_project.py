@@ -8,18 +8,16 @@
 # 1. Objetivo: criar agentes e interações.
 
 
-import random
-
-
 class Investors:
     # cria classe: Investidores
-    def __init__(self, inves):  # indicar um número único para cada investidor
-        self.registration = inves
+    def __init__(self, idinves):  # indicar um número único para cada investidor
+        self.id = idinves
         self.balance = 0
+        self.interest = 0
 
     def deposit(self, amount):
         # depositar recursos
-        self.balance += amount
+        self.balance -= amount
 
     def get_balance(self):
         return self.balance
@@ -33,18 +31,24 @@ class Investors:
 
     def withdraw(self, amount):
         # retirar recursos
-        self.balance -= amount
+        self.balance += amount + self.interest
         return self.balance
 
 
 class Banks:
     # cria a classe: Bancos
-    def __init__(self, idbank, n):  # indicar um número único para cada banco
-        self.bank = n
+    def __init__(self, idbank):  # indicar um número único para cada banco
         self.id = idbank
-        self.balance = 10.000
-        self.deposit = random.randrange(1, 1000)
-        self.loan = random.randrange(1, 1000)
+        self.K = 10000
+        self.balance = 0
+        self.deposit = 0
+        self.loanf = 0
+        self.spread = 0
+        self.interest = 0
+
+    def get_balance(self):
+        self.balance = self.deposit + self.spread - self.loanf - self.interest
+        return self.balance
 
     def check_funds(self, amount):
         # verificar recursos
@@ -57,7 +61,7 @@ class Banks:
         self.balance += amount
 
     def investor_pay(self, amount):
-        self.balance -= amount
+        self.balance -= amount - self.interest
 
     def lending(self, amount):
         if self.balance >= amount:
@@ -66,16 +70,16 @@ class Banks:
         else:
             return False
 
-    def receive_loan(self, amount):
-        self.balance += amount
+    def recieves_loan(self, amount):
+        self.balance += amount + self.spread
 
 
 class Firms:
     # cria a classe Firmas
-    def __init__(self, idfirms, num):  # indicar um número unico para cada empresa
+    def __init__(self, idfirms):  # indicar um número unico para cada empresa
         self.firms = idfirms
-        self.registration = num
         self.balance = 0
+        self.debt = 0
         print('Agent has {} right now'.format(self.balance))
 
     def get_loan(self, amount):
@@ -87,8 +91,8 @@ class Firms:
         else:
             return False
 
-    def pay_loan(self, amount):
-        self.balance -= amount
+    def payment_loan(self, amount):
+        self.balance -= self.debt
         # print('Agent has {} fun right now'.format(self, amount))
 
 
