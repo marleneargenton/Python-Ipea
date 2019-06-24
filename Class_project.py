@@ -14,7 +14,7 @@ class investors:
     # cria classe: Investidores
     def __init__(self, idinves):  # indicar um número único para cada investidor
         self.id = idinves
-        self.balance = random.randrange(1, 20000)
+        self.balance = random.randrange(10000, 2000000)
 
     def get_balance(self):
         return self.balance
@@ -41,7 +41,7 @@ class banks:
     # cria a classe: Bancos
     def __init__(self, idbank):  # indicar um número único para cada banco
         self.id = idbank
-        self.balance = random.randrange(1, 100000)
+        self.balance = random.randrange(10000000, 100000000)
         self.debt = 0
         self.credit = 0
 
@@ -115,19 +115,19 @@ class firms:
 
 
 if __name__ == '__main__':
-    i = Investors(0)
-    b = Banks(0)
+    i = investors(1)
+    b = banks(1)
     valor_investir = 10
     if i.check_funds(valor_investir):
-        b.receive_deposit(i.deposit(valor_investir))
+        b.add_balance(i.deposit(valor_investir))
     print(i.balance)
     print(b.balance)
-    f1 = Firms(0)
+    f1 = firms(0)
     f1.get_loan(100)
     print(f1.check_funds())
     f1.payment_loan(110)
     print(f1.check_funds())
-    b1 = Banks(0)
+    b1 = banks(0)
     b1.receives_loan(f1.payment_loan(110))
     # self.balance += amount * .7
     # self.investor_pay(amount, investor)
