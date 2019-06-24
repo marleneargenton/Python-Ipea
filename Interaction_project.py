@@ -21,11 +21,11 @@ def estrategia_investidor(r, p, b, amount):
         r1 = random.choice(r)
         amount1 = random.choice(amount)
         if r1 >= 5.76:
-            if p[s].check_funds(amount1):
+            if p[s].check_funds():
                 p[s].investor.deposit(b1[s].add_balance(amount1))
             return
         if r1 > 11.52:
-            if b1[s].check_funds(amount1):
+            if b1[s].check_funds():
                 b1[s].withdraw(p[s].withdraw(amount1))
         return
 
@@ -33,8 +33,9 @@ def estrategia_investidor(r, p, b, amount):
 def estrategia_firmas(t, e, a, value):
     for d in range(len(e)):
         a1 = random.choice(a)
+        t1 = random.choice(t)
         value1 = random.choice(value)
-        while t <= 11.52:
+        while t1 <= 11.52:
             if a1[d].check_funds(value1):
                 a1[d].lending(e[d].get_loan(value1))
     return
@@ -53,8 +54,8 @@ if __name__ == '__main__':
     fir = [10]
     poup, banc, emp = main(inv, ban, fir)
     tax = [10, 3, 5, 9, 11, 6]
-    am = [1000, 100, 300, 400, 10, 0]
+    am = [1000, 100, 300, 400, 10, 30]
     rem = [10, 3, 5, 9, 11, 6]
-    valor = [1000, 100, 300, 400, 10, 0]
+    valor = [1000, 100, 300, 400, 10, 200]
     print(estrategia_investidor(rem, ban, fir, valor))
     print(estrategia_firmas(tax, ban, fir, am))
