@@ -7,54 +7,54 @@
 import random
 import Class_project
 
-# criar lista
-# calcular rentabilidade da aplicação financeira
-# calcular rentabilidade dos emprestimos
-# interação
 
-
-import Class_project
-
-
-def creation(f, n, d):
+def creation(y, n, d):
     x = list()
     for i in range(n):
-        x.append(f(i, d))
+        x.append(y(i, d))
     return x
 
 
-def estrategia_investidor(rem, investidor, banco, amount):
-    for i in range(investidor):
-        if rem >= 5.76:
-            (i).check_funds and (i).deposit(amount):
-            (banco).receive_deposit(amount)
-            (banco).check_funds and (banco).withdraw()
+def estrategia_investidor(r, p, b, amount):
+    for s in range(len(p)):
+        b1 = random.choice(b)
+        r1 = random.choice(r)
+        amount1 = random.choice(amount)
+        if r1 >= 5.76:
+            if p[s].check_funds(amount1):
+                p[s].investor.deposit(b1[s].add_balance(amount1))
+            return
+        if r1 > 11.52:
+            if b1[s].check_funds(amount1):
+                b1[s].withdraw(p[s].withdraw(amount1))
         return
 
 
-def estrategia_firmas(taxa, firmas, bank, value):
-    for i in range(firmas):
-        if taxa <= 11.52:
-            [firmas].get_loan().bank.check_funds and bank.lending(value)
-        else:
-            continue
+def estrategia_firmas(t, e, a, value):
+    for d in range(len(e)):
+        a1 = random.choice(a)
+        value1 = random.choice(value)
+        while t <= 11.52:
+            if a1[d].check_funds(value1):
+                a1[d].lending(e[d].get_loan(value1))
     return
 
 
-def main(list_i, list_b, list_f):
-    random.shuffle(list_i)
-    random.shuffle(list_b)
-    random.shuffle(list_f)
-    #renta(list_b)
-    #interact(list_i, list_b, list_f)
-    return list_i, list_b, list_f
+def main(list_investors, list_banks, list_firms):
+    random.shuffle(list_investors)
+    random.shuffle(list_banks)
+    random.shuffle(list_firms)
+    return list_investors, list_banks, list_firms
 
 
 if __name__ == '__main__':
-    i = [10]
-    b = [13]
-    f = [10]
-    Investors, Banks, Firms = main(i, b, f)
-    remuneracao =[ 5, 8, 10, 3, 7]
-    valor = [100, 200, 300, 400, 500]
-    print(estrategia_investidor(remuneração,valor))
+    inv = [10]
+    ban = [13]
+    fir = [10]
+    poup, banc, emp = main(inv, ban, fir)
+    tax = [10, 3, 5, 9, 11, 6]
+    am = [1000, 100, 300, 400, 10, 0]
+    rem = [10, 3, 5, 9, 11, 6]
+    valor = [1000, 100, 300, 400, 10, 0]
+    print(estrategia_investidor(rem, ban, fir, valor))
+    print(estrategia_firmas(tax, ban, fir, am))
