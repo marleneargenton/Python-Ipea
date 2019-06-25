@@ -23,6 +23,7 @@ def creation_investors(p, n):
     invlist = list()
     for i in range(n):
         invlist.append(p(i))
+        i += 1
     return invlist
 
 
@@ -31,6 +32,7 @@ def creation_banks(b, y):
     banklist = list()
     for i in range(y):
         banklist.append(b(i))
+        i+=1
     return banklist
 
 
@@ -39,6 +41,7 @@ def creation_firms(f, w):
     firmlist = list()
     for i in range(w):
         firmlist.append(f(i))
+        i += 1
     return firmlist
 
 
@@ -78,7 +81,7 @@ if __name__ == '__main__':
     am = [1000, 100, 300, 400]
     rem = [10, 13, 5, 9]
     valor = [1000, 100, 300, 400]
-    print(estrategia_investidor(rem, ivlist, banlist, valor))
+    #print(estrategia_investidor(rem, ivlist, banlist, valor))
     print(estrategia_firmas(tax, firlist, banlist, am))
     #print(creation_banks(Banks, 5))
     #print(creation_firms(Firms, 20))
