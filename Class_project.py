@@ -1,16 +1,17 @@
-# Python4ABMIpea  - Exercício 2
+# Python4ABMIpea  - Exercício 3
 #
 # Professor: Bernardo Furtado
 #
 # Autora: Marlene Aparecida Argenton
 #
 #
-# 1. Objetivo: criar agentes e interações.
+# 1. Objetivo: criar agentes (bancos, firmas e investidores) e verificar as interações relativas
+# as alterações no valor das taxas de juros praticadas.
 
 import random
 
 
-class investors:
+class Investors:
     # cria classe: Investidores
     def __init__(self, idinves):  # indicar um número único para cada investidor
         self.id = idinves
@@ -37,7 +38,7 @@ class investors:
         return self.balance
 
 
-class banks:
+class Banks:
     # cria a classe: Bancos
     def __init__(self, idbank):  # indicar um número único para cada banco
         self.id = idbank
@@ -82,7 +83,7 @@ class banks:
         return
 
 
-class firms:
+class Firms:
     # cria a classe Firmas
     def __init__(self, idfirms):  # indicar um número unico para cada empresa
         self.firms = idfirms
@@ -115,19 +116,17 @@ class firms:
 
 
 if __name__ == '__main__':
-    i = investors(1)
-    b = banks(1)
+    i = Investors(1)
+    b = Banks(1)
     valor_investir = 10
     if i.check_funds(valor_investir):
         b.add_balance(i.deposit(valor_investir))
     print(i.balance)
     print(b.balance)
-    f1 = firms(0)
+    f1 = Firms(0)
     f1.get_loan(100)
     print(f1.check_funds())
     f1.payment_loan(110)
     print(f1.check_funds())
-    b1 = banks(0)
+    b1 = Banks(0)
     b1.receives_loan(f1.payment_loan(110))
-    # self.balance += amount * .7
-    # self.investor_pay(amount, investor)
