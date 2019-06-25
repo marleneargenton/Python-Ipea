@@ -1,61 +1,85 @@
-# Python4ABMIpea  - Exercício 2
+# Python4ABMIpea  - Exercício 3
 #
 # Professor: Bernardo Furtado
 #
 # Autora: Marlene Aparecida Argenton
 
+# Outro módulo, import as classes e contém algumas funções:
+# criam-se listas para bancos, firmas e invetidores:
+# Faz-se um loop utilizando n, i, append às listas, retorna
+# Outra função, define as estratégias dos investidores, que depositando recursos nos Bancos, quando a taxa de juros
+# alcança um parâmetro pré-definido, ou realizam retirada de seus recursos, caso identifiquem risco de liquidez das
+# instituições financeiras, ou oferecerem uma remuneração maior que a oferecida, normalmente, pelo mercado.
+# Por fim, a interação entre bancos e firmas, definida pela estratégias de firmas na busca de empréstimos, que a partir
+# de um determinado patamar de taxa optam por contrair o empréstimo.
+
+
 import random
-import Class_project
+from Class_project import Banks, Investors, Firms
 
 
-def creation(y, n, d):
-    x = list()
+def creation_investors(p, n):
+    #cria a lista de investidores
+    invlist = list()
     for i in range(n):
-        x.append(y(i, d))
-    return x
+        invlist.append(p(i))
+    return invlist
+
+
+def creation_banks(b, y):
+    #cria a lista de bancos
+    banklist = list()
+    for i in range(y):
+        banklist.append(b(i))
+    return banklist
+
+
+def creation_firms(f, w):
+    # cria a lista de firmas
+    firmlist = list()
+    for i in range(w):
+        firmlist.append(f(i))
+    return firmlist
 
 
 def estrategia_investidor(r, p, b, amount):
-    for s in range(len(p)):
-        b1 = random.choice(b)
-        r1 = random.choice(r)
-        amount1 = random.choice(amount)
-        if r1 >= 5.76:
-            if p[s].check_funds():
-                p[s].investor.deposit(b1[s].add_balance(amount1))
+    # define a estratégia dos investidores dados os parâmetros de taxas min 5.76% a.a e máx de 11.52% a.a
+    b1 = random.choice(b)
+    r1 = random.choice(r)
+    amount1 = random.choice(amount)
+    for s in p:
+        if r1 > 5.76:
+            if s.check_funds(amount1):
+                s.deposit(b1.add_balance(amount1))
             return
         if r1 > 11.52:
-            if b1[s].check_funds():
-                b1[s].withdraw(p[s].withdraw(amount1))
-        return
+            if b1.bank.check_funds(amount1):
+                b1.withdraw(s.withdraw(amount1))
+            return
 
 
 def estrategia_firmas(t, e, a, value):
-    for d in range(len(e)):
-        a1 = random.choice(a)
-        t1 = random.choice(t)
-        value1 = random.choice(value)
-        while t1 <= 11.52:
-            if a1[d].check_funds(value1):
-                a1[d].lending(e[d].get_loan(value1))
-    return
-
-
-def main(list_investors, list_banks, list_firms):
-    random.shuffle(list_investors)
-    random.shuffle(list_banks)
-    random.shuffle(list_firms)
-    return list_investors, list_banks, list_firms
+    # define a estratégia das empresas considerando o parâmetro de taxa de abaixo de 11.52% a.a
+    a1 = random.choice(a)
+    t1 = random.choice(t)
+    value1 = random.choice(value)
+    for d in e:
+        while t1 < 11.52:
+            if a1.check_funds(value1):
+                a1.lending(d.get_loan(value1))
+        return
 
 
 if __name__ == '__main__':
-    inv = [10]
-    ban = [13]
-    fir = [10]
-    poup, banc, emp = main(inv, ban, fir)
-    tax = [10, 3, 5, 9, 11, 6]
-    am = [1000, 100, 300, 400, 10, 30]
-    rem = [10, 3, 5, 9, 11, 6]
-    valor = [1000, 100, 300, 400, 10, 200]
-    print(estrategia_investidor(rem, ban, fir, valor))
-    print(estrategia_firmas(tax, ban, fir, am))
+    ivlist = creation_investors(Investors, 200)
+    banlist = creation_banks(Banks, 5)
+    firlist = creation_firms(Firms, 16)
+    tax = [10, 3, 5, 19]
+    am = [1000, 100, 300, 400]
+    rem = [10, 13, 5, 9]
+    valor = [1000, 100, 300, 400]
+    print(estrategia_investidor(rem, ivlist, banlist, valor))
+    print(estrategia_firmas(tax, firlist, banlist, am))
+    #print(creation_banks(Banks, 5))
+    #print(creation_firms(Firms, 20))
+    #print(creation_investors(Investors, 30))
