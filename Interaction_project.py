@@ -18,71 +18,59 @@ import random
 from Class_project import Banks, Investors, Firms
 
 
-def creation_investors(p, n):
-    #cria a lista de investidores
-    invlist = list()
+def creation(x, n):
+    # essa função pode ser utilizada por investidores, bancos e firmas, pois o primeiro argumento é uma classe.
+    ag = list()
     for i in range(n):
-        invlist.append(p(i))
+        ag.append(x(i))
         i += 1
-    return invlist
+    return ag
 
 
-def creation_banks(b, y):
-    #cria a lista de bancos
-    banklist = list()
-    for i in range(y):
-        banklist.append(b(i))
-        i+=1
-    return banklist
-
-
-def creation_firms(f, w):
-    # cria a lista de firmas
-    firmlist = list()
-    for i in range(w):
-        firmlist.append(f(i))
-        i += 1
-    return firmlist
-
-
-def estrategia_investidor(r, p, b, amount):
-    # define a estratégia dos investidores dados os parâmetros de taxas min 5.76% a.a e máx de 11.52% a.a
-    b1 = random.choice(b)
-    r1 = random.choice(r)
-    amount1 = random.choice(amount)
+def estrategia_investidor(p, b):
+    # define a estratégia dos investidores dados os parâmetros de taxas min 5.76% a.a e a partir de 11.52% a.a
+    r = list(range(1, 20))
+    amount = list(range(1, 1001))
     for s in p:
-        if r1 > 5.76:
+        b1 = random.choice(b)
+        r1 = random.choice(r)
+        amount1 = random.choice(amount)
+        if r1 > 11.52:
+            if b1.check_funds(amount1):
+                b1.withdraw(s.withdraw(amount1))
+                print('retirada', -amount1, 'remuneração', r1)
+        elif r1 > 5.76:
             if s.check_funds(amount1):
                 s.deposit(b1.add_balance(amount1))
-            return
-        if r1 > 11.52:
-            if b1.bank.check_funds(amount1):
-                b1.withdraw(s.withdraw(amount1))
-            return
+                print('depósito', amount1, 'remuneração', r1)
 
 
-def estrategia_firmas(t, e, a, value):
+def estrategia_firmas(e, a):
     # define a estratégia das empresas considerando o parâmetro de taxa de abaixo de 11.52% a.a
-    a1 = random.choice(a)
-    t1 = random.choice(t)
-    value1 = random.choice(value)
+    t = list(range(5, 21))
+    value = list(range(1, 1001))
     for d in e:
-        while t1 < 11.52:
+        a1 = random.choice(a)
+        t1 = random.choice(t)
+        value1 = random.choice(value)
+        if t1 < 11.52:
             if a1.check_funds(value1):
                 a1.lending(d.get_loan(value1))
-        return
+                print('empréstimo', value1, 'taxa', t1)
+
+
+def main(p, b, f):
+    # cria lista
+    ivlist = creation(Investors, p)
+    banlist = creation(Banks, b)
+    firlist = creation(Firms, f)
+    estrategia_investidor(ivlist, banlist)
+    estrategia_firmas(firlist, banlist)
+    return ivlist, banlist, firlist
 
 
 if __name__ == '__main__':
-    ivlist = creation_investors(Investors, 200)
-    banlist = creation_banks(Banks, 5)
-    firlist = creation_firms(Firms, 16)
-    tax = [10, 3, 5, 19]
-    am = [1000, 100, 300, 400]
-    rem = [10, 13, 5, 9]
-    valor = [1000, 100, 300, 400]
-    #print(estrategia_investidor(rem, ivlist, banlist, valor))
-    print(estrategia_firmas(tax, firlist, banlist, am))
-    #print(creation_banks(Banks, 5))
-    #print(creation_firms(Firms, 20))
-    #print(creation_investors(Investors, 30))
+    iv = 300
+    ban = 10
+    fir = 200
+    investor, bank, firms = main(iv, ban, fir)
