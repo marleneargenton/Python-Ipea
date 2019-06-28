@@ -3,10 +3,6 @@ import Interaction_project
 import os
 import matplotlib.pyplot as plt
 
-# print([i.balance for i in inv])
-# print([i.balance for i in b])
-# print([i.balance for i in firm])
-
 
 def grafic(inv, ban, fir, rem, amount):
     file = 'results.csv'
@@ -18,19 +14,22 @@ def grafic(inv, ban, fir, rem, amount):
         os.remove(file)
     with open(file, 'a') as f:
         f.write('depósitos; retiradas; remuneração\n')
-        for i in inv:
+        for i in range(len(inv)) and range(len(ban)):
             inv, ban, fir, = Interaction_project.main(inv[i], ban[i], fir[i])
-            if (rem > 11.52) in range(len(rem)):
-                if i.check_funds(amount):
-                    i.withdraw(i.withdraw(amount))
-            elif rem > 5.76:
-                if i.check_funds(amount):
-                    i.deposit(i.add_balance(amount))
-            f.write('{};{};{};'.format(amount, -amount, rem))
+            ban1 = random.choice(ban)
+            rem1 = random.choice(rem)
+            amount1 = random.choice(amount)
+            if rem1 > 11.52:
+                if ban[i].check_funds(amount1):
+                    ban1[i].withdraw(inv[i].withdraw(amount1))
+            elif rem1 > 5.76:
+                if inv[i].check_funds(amount1):
+                    inv[i].deposit(ban[i].add_balance(amount1))
+            f.write('{};{};{};'.format(inv[i].deposit, inv[i].withdraw, rem1))
             f.write('\n')
-            retlist.append(amount)
-            deplist.append(-amount)
-            taxlist.append(rem)
+            retlist.append(inv[i].deposit)
+            deplist.append(inv[i].withdraw)
+            taxlist.append(rem1)
     # cria o gráfico
     plt.plot(deplist, taxlist, color='#17a589', label='depósitos')
     plt.plot(retlist, taxlist, color='red', label='retiradas')
@@ -43,6 +42,6 @@ if __name__ == '__main__':
     po = [20, 40, 60, 80, 120, 250, 350, 400, 600, 800, 900, 1000]
     ba = [3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30]
     fi = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 150, 200]
-    re = list(range(1, 19 + 1))
-    am = list(range(100, 1000 + 1))
+    re = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20]
+    am = [100, 200, 300, 400, 1000, 1500, 2000, 3000, 5000, 6500, 9000, 10000]
     grafic(po, ba, fi, re, am)
