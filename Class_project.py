@@ -5,8 +5,8 @@
 # Autora: Marlene Aparecida Argenton
 #
 #
-# 1. Objetivo: criar agentes (bancos, firmas e investidores) e verificar as interações relativas
-# as alterações no valor das taxas de juros praticadas.
+# 1. Objetivo: criar agentes (bancos, firmas e investidores) e verificar as interações relativas a simulações
+# de alterações no valor das taxas de juros.
 
 import random
 
@@ -89,7 +89,7 @@ class Firms:
         self.firms = idfirms
         self.balance = random.randrange(1000, 100000)
         self.loanf = 0
-        #print('Agent has {} right now'.format(self.balance))
+        print('Agent has {} right now'.format(self.balance))
 
     def get_balance(self):
         return self.balance
